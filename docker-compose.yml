@@ -1,0 +1,27 @@
+
+version: '3.8'
+
+networks:
+  chatbox_network:
+    name: chatbox_network
+    driver: bridge
+
+services:
+  chatbox_db:
+    container_name: chatbox_db
+    image: mysql:8.0.28-oracle
+    restart: always
+    ports:
+      - 3306:3306
+    networks:
+      - chatbox_network
+    environment:
+      MYSQL_DATABASE: chatbox
+      MYSQL_USER: chatbox
+      MYSQL_PASSWORD: chatbox
+      MYSQL_ROOT_PASSWORD: chatbox
+    volumes:
+      - chatbox_db:/var/lib/mysql
+
+volumes:
+  chatbox_db:
