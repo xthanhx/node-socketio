@@ -1,13 +1,24 @@
 import { Button, Checkbox, Form, Input } from "antd"
+import { useNavigate } from "react-router-dom";
+import fetcher from "../helpers/fetcher";
 
 const Login = (props: any) => {
+  const navigate = useNavigate()
+
   const onFinish = (values: any) => {
-    console.log('Success:', values);
+    fetcher.Post('http://localhost:3000/login', values)
+    .then(res => res.json())
+    .then((res: {[key: string]: any}) => {
+      if (res?.id) {
+        navigate('/')
+      }
+    })
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
+
   return (
     <div className="bg-white pt-8 p-4 rounded">
       <Form

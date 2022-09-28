@@ -1,31 +1,30 @@
 const option: any = {
-  method: 'POST',
-  mode: 'cors',
-  cache: 'no-cache',
-  credentials: 'same-origin',
   headers: {
     'Content-Type': 'application/json'
   },
-  redirect: 'follow',
-  referrerPolicy: 'no-referrer',
+}
+
+type AnyObject = {
+  [key: string]: any
 }
 
 const fetcher = async (url: string) => {
   return await fetch(url)
 }
 
-fetcher.Post = async (url, data) => {
+fetcher.Post = async (url: RequestInfo | URL, data: AnyObject) => {
+  option.method = 'POST'
   option.body = JSON.stringify(data)
   return await fetch(url, option)
 }
 
-fetcher.Put = async (url, data) => {
+fetcher.Put = async (url: RequestInfo | URL, data: AnyObject) => {
   option.method = 'PUT'
   option.body = JSON.stringify(data)
   return await fetch(url, option)
 }
 
-fetcher.Delete = async (url, data) => {
+fetcher.Delete = async (url: RequestInfo | URL, data: AnyObject) => {
   option.method = 'DELETE'
   option.body = JSON.stringify(data)
   return await fetch(url, option)
